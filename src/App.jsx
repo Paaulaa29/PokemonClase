@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import header from './assets/header.jpeg';
 import './App.css';
 import PokemonCard from './components/PokemonCard';
-import { fetchPokemons } from './service/pokemonService'; // Importa el servicio
+import { fetchPokemons } from './services/pokemonService'; // Importa el servicio
 
 
 const App = () => {
