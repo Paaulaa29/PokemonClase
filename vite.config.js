@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   // Ambas líneas añadidas:
   // documentroot del proyecto
-  base: '/PokemonClase/',
+  base: '/PokemonClase/', //Este tiene que ser el nombre del repositorio en github
   // Carpeta de salida configurada como 'docs'
   // para poder alojar en GitHub Pages (main branch, docs folder)
   build: {

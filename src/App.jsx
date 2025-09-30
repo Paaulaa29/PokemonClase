@@ -3,13 +3,32 @@ import header from './assets/header.jpeg';
 import './App.css';
 import PokemonCard from './components/PokemonCard';
 import { fetchPokemons } from './services/pokemonService'; // Importa el servicio
-
+import Search from './components/Search';
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
-    useEffect(() => {
+  const [filteredPokemons, setFilteredPokemons] = useState([]);
+
+  const handleSearch = (query)=>{
+    if (!query) {
+      setFilteredPokemons(pokemons);
+    } else {
+      setFilteredPokemons(
+        pokemons.filter(pokemon => //Para cada pokemon accedemos a su nombre
+          pokemon.name.toLowerCase().includes(
+            query.toLowerCase())
+        )
+      );
+    }
+  }
+  
+
+     useEffect(() => {
     fetchPokemons()
-      .then(setPokemons)
+      .then(pokemons => {
+        setPokemons(pokemons); 
+        setFilteredPokemons(pokemons);
+      })
       .catch((err) => {
         console.log(err.message);
       });
@@ -20,8 +39,13 @@ const App = () => {
       <header className="header-bg">
         <img src={header} alt="header" class="w-100" />
       </header>
+      <div className="row justify-content-center pt-3">
+        <div className="col-10 col-sm-8 col-md-6 col-xl-4">
+          <Search onSearch={handleSearch} />
+        </div>
+      </div>
       <div class="row p-3 justify-content-center">
-        {pokemons.map((pokemon) => (
+        {filteredPokemons.map((pokemon) => (
           <div class="col-md-6 col-lg-4 mb-3">
             <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
           </div>
